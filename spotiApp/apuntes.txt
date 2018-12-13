@@ -1,0 +1,83 @@
+--CREAR PROYECTO
+ng new nombreproyecto
+-- SUBIR SERVIDOR
+ng serve
+-- CREAR COMPONENTE
+ng g c components/nombre_componente --spec=false -is
+-- PARA CREAR RUTAS EN ANGULAR
+se crea un archivo dentro de app, llamado app.routes.ts
+Se crea una constante de tipo Routes (importada de @angular/routes), se colocan los paths 
+con los correspondientes paths :
+export const ROUTES: Routes = [
+    { path : 'home', component: HomeComponent},
+    { path : 'search', component: SearchComponent},
+    { path : '' , pathMatch: 'full' , redirectTo: 'home'},
+    { path : '**' , pathMatch: 'full' , redirectTo: 'home'}
+]; 
+
+IMPORTANTE: en el app.component.html, se debe colocar la etiqueta <router-outlet>, y alli se aplicara el 
+renderizado de las rutas del routes.ts
+
+luego, en el app.module.ts, se importa RouterModule
+import { RouterModule } from '@angular/router';
+en los imports [] -> se coloca RouterModule.forRoot( ROUTES, {useHash: true } )
+
+Dentro del navbar, en los li, se coloca routerLink, para indicar a que pagina debe ir
+<li class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="home">Home </a>
+</li>
+--PETICIONES HTTP ANGULAR
+En el app.module.ts -> Se importa import { HttpClientModule } from '@angular/common/http';
+En el componente que usara peticiones, se importa import { HttpClient } from '@angular/common/http'
+aparte hay que importar HttpHeaders para poder manipular los headers de la peticion, queda asi import { HttpClient,HttpHeaders } from '@angular/common/http'
+En el componente que usara peticiones, se debe colocar en el constructor -> constructor( private http: HttpClient)
+--CREAR UN SERVICIO 
+ng g s services/spotify --spec=false
+Los servicios se deben declarar dentro de los providers[] del app.module SOLO CUANDO NO ESTE 
+@Injectable({
+  providedIn: 'root'
+})
+EN LA DECLARACION.
+En el connstructor del servicio, debe ir  constructor(private http: HttpClient ) , importando import { HttpClient } from '@angular/common/http'; y en el app.module debe ir import { HttpClientModule } from '@angular/common/http'; y en los imports[] del app.module colocar HttpClientModule
+--REALIZAR PETICION HTTP: GET 
+this.http.get('https://api.spotify.com/v1/browse/new-releases')
+	.subscribe( data => {
+		console.log(data);
+	});
+--PARA AGREGAR HEADERS
+Se crea constante de tipo HttpHeaders, se agregan y en la peticion , se coloca dentro del segundo paramentro (OPTIONS).
+const headers = new HttpHeaders({
+      'Authorization' : 'Bearer TOKENAGENERAR'
+    });
+    this.http.get('https://api.spotify.com/v1/browse/new-releases', { headers })
+      .subscribe( data => {
+        console.log(data);
+      });
+--PARA CREAR MAPS PARA FORMATEAR JSON RESULTANTES DE PETICION HTTP
+importar import { map } from 'rxjs/operators';
+llamar a .pipe en la definicion del servicio, para saber que es lo que quiero capturar:
+    return this.http.get('https://api.spotify.com/v1/browse/new-releases?limit=20', { headers })
+      .pipe( map( data => {
+        return data['albums'].items;
+      }));
+--PARA GENERAR PIPES
+ng g p pipes/noimage
+--PARA REDIRECCIONAR DE UNA PAGINA A OTRA 
+1. importar Router -> import { Router } from '@angular/router';
+2. inyectarlo en el constructor constructor( private router: Router ) { }
+3. En el lugar donde esta la logica para redireccionar, se coloca -> this.router.navigate(['/artist' , artistaId]);
+donde el primer parametro es el destino (debe estar en las rutas) y el segundo es la variable de entrada (:id)
+
+--PARA RECIBIR PARAMETROS DESDE UNA PAGINA QUE LLAMA A OTRA
+1. importar ActivatedRoute -> import { ActivatedRoute } from '@angular/router';
+2. Inyectarlo en el constructor  constructor( private router: ActivatedRoute ) { }
+3. Subscribirse a los cambios de los params que se reciben
+ constructor( private router: ActivatedRoute ) {
+    this.router.params.subscribe( params => {
+      console.log(params);
+    });
+  }
+--PARA NAVEGAR DESDE LA VISTA
+<button routerlink="/search" class="btn btn-outline-danger">
+  Regresar
+</button>

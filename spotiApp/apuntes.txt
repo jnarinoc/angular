@@ -77,7 +77,31 @@ donde el primer parametro es el destino (debe estar en las rutas) y el segundo e
       console.log(params);
     });
   }
+--PARA OBTENER PARAMETROS QUE RECIBIO UN PADRE DESDE UN HIJO
+constructor( private route: ActivatedRoute ) {
+    this.route.parent.params.subscribe( parametros => {
+      console.log(parametros);
+    });
+  }
 --PARA NAVEGAR DESDE LA VISTA
 <button routerlink="/search" class="btn btn-outline-danger">
   Regresar
 </button>
+--PARA CREAR UNA DIRECTIVA 
+ng g d directivas/nombre
+--PARA COLOCAR UNA DIRECTIVA A UN TAG HTML
+<h1 appResaltado>Hola Mundo</h1>
+-- PARA LOCALIZAR Y MODIFICAR ELEMENTOS DESDE LA DIRECTIVA SE IMPORTA 
+import { Directive, ElementRef, HostListener } from '@angular/core';
+  constructor(private el: ElementRef ) {
+    console.log('directiva llamada');
+  }
+-- PARA CREAR ESCUCHADORES  ...
+@HostListener('mouseenter') mouseEntro() {
+    this.el.nativeElement.style.backgroundColor = 'yellow';
+  }
+--PARA ENVIAR PARAMETROS DESDE LA DIRECTIVA
+<h1 [appResaltado]="'orange'">Hola Mundo</h1>
+-- PARA RECIBIR LOS PARAMETROS EN LA DIRECTIVA: 
+INYECTAR import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+CREAR VARIABLE DE ENTRADA @Input('appResaltado') nuevoColor: string;

@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% block ver_usuario %}
+<table class="table">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Nombre</th>
+			<th>Edad</th>
+			<th>Email</th>
+			<th>Telefono</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for usuario in usuarios%}
+			<tr>
+				<td>{{loop.index}}</td>
+				<td>{{usuario.nombre}}</td>
+				<td>{{usuario.edad}}</td>
+				<td>{{usuario.email}}</td>
+				<td>{{usuario.telefono}}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

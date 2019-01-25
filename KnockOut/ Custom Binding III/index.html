@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="js/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="js/bootstrap/dist/css/bootstrap-theme.min.css">
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="js/knockout.js"></script>
+	<link rel="stylesheet" type="text/css" href="estilos.css">
+	<script>
+		$(document).ready(function(){
+			ko.bindingHandlers.slideTransition = {
+				init: function(element, valueAccesor){
+					var data = ko.utils.unwrapObservable(valueAccesor());
+					var visible = data;
+					if (typeof data === 'object')
+						visible = ko.utils.unwrapObservable(data.visible);
+					$(element).toggle(visible);
+				},
+				update: function(element, valueAccesor){
+					var data = ko.utils.unwrapObservable(valueAccesor());
+					var visible = data;
+					var options;
+					if (typeof data === 'object'){
+						visible = ko.utils.unwrapObservable(data.visible);
+						if(data.hasOwnProperty('options'))
+							options = data.options;
+					}
+					if (visible){
+						$(element).stop(true, false).slideDown(options);
+					}else{
+						$(element).stop(true, false).slideUp(options);
+					}
+				}
+			}
+			function customBindingsViewModel(){
+				var self = this;
+				self.isVisibleBindingOpen = ko.observable(false);
+				self.isBasicSliderOpen = ko.observable(false);
+				self.isAdvancedSliderOpen = ko.observable(false);
+				self.togglePanel(!slider());
+			};
+			ko.applyBindings(new customBindingsViewModel());
+		});
+	</script>
+</head>
+<body role="document">
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="#" class="navbar-brand"></a>
+			</div>
+
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#slider">Slider Transition</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container theme-showcase" role="main">
+		<div id="slider"></div>
+		<div class="page-header">
+			<h2>Custom Binding para Efecto visual con knockout</h2>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading pointer" data-bind="click: togglePanel.bind($data, isBasicSliderOpen)">
+				<h3 class="panel-title">Informacion Importante</h3>
+			</div>
+			<div class="panel-body" data-bind="slideTransition: isBasicSliderOpen">
+				<h4>Efectos visuales con Knockout Js</h4>
+				<p>Este Binding personalizado nos permite crear un efecto visual para simular un pequeño slide de informacion. Se puede aplicar para cualquier aplicativo donde se vea involucrado alto volumen de informacion con el usuario, para este demo se aplico bootstrap</p>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading pointer" data-bind="click: togglePanel.bind($data, isAdvancedSliderOpen)">
+				<h3 class="panel-title">Informacion de Contacto</h3>
+			</div>
+			<div class="panel-body" data-bind="slideTransition:{visible: isAdvancedSliderOpen, options: {duration:1000}}">
+				<form class="form-horizontal">
+					<fieldset >
+						<div class="form-group">
+							<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+							<div class="col-lg-10">
+								<input type="text" name="inputEmail" class="form-control" id="inputEmail" placeholder="Email">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword" class="col-lg-2 control-label">Asunto a tratar</label>
+							<div class="col-lg-10">
+								<input type="text" name="inputPassword" class="form-control" id="inputPassword" placeholder="Asunto">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox">Acepta terminos y condiciones
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="textArea" class="col-lg-2 control-label">Mensaje</label>
+							<div class="col-lg-10">
+								<textarea class="form-control" rows="3" id="textArea"></textarea>
+								<span class="help-block">De manera breve comunique por este medio la informacion a tratar</span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-lg-10 col-lg-offset-2">
+								<button type="reset" class="btn btn-default">Cancel</button>
+								<button type="submit" class="btn btn-primary" onclick="alert('Hola');">Enviar</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

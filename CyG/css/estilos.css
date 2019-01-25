@@ -1,0 +1,95 @@
+#menu * {
+ list-style : none;
+ }
+#menu li {
+ line-height : 180%;
+ }
+#menu li a {
+ color : #222;
+ text-decoration : none;
+	color:black;}
+
+	hover {color:#82bc00;}
+ }
+#menu li a:before {
+ content : "\025b8";
+ color : #ddd;
+ margin-right : 4px;
+ }
+#menu input[name="list"] {
+ position : absolute;
+ left : -1000em;
+ }
+#menu label:before {
+ content : "\025b8";
+ margin-right : 4px;
+ }
+#menu input:checked ~ label:before {
+ content : "\025be";
+ }
+#menu .interior {
+ display : none;
+ }
+#menu input:checked ~ ul {
+ display : block;
+ }
+ 
+ 
+ 
+ @import url(https://fonts.googleapis.com/css?family=Istok+Web);
+
+div.cae_texto {
+    width: 30px;
+    height: 20px;
+    line-height: 10px;
+    color: transparent;
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+       font-weight: 300;
+    text-transform: ;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+	text-align:center
+}
+div.cae_texto:hover {
+    line-height: 25px;
+	width: 25px;	
+    color: #575858;
+	text-align: justify;
+}
+div.cae_texto img{
+    float: left;
+    margin: 0 15px;
+}
+
+
+}
+* {
+  box-sizing: border-box;
+}
+ figure { 
+  margin: 0; background: #101010;
+  font-family: Istok Web, sans-serif;
+  font-weight: 100;
+}
+div#captioned-gallery { 
+	padding-bottom: 15px;
+  	width: 100%; overflow: hidden;
+	height:auto; 
+}
+figure.slider { 
+  position: relative; width: 1000%;
+  font-size: 0; animation: 15s slidy infinite; 
+}
+figure.slider figure { 
+  width: 1350px; height: auto;
+  display: inline-table;  position: inherit; 
+}
+figure.slider img { width: 100%; height: auto; }
+figure.slider figure figcaption { 
+  position: absolute; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  color: #fff; width: 100%;
+  font-size: 2rem; padding: .6rem; 
+}

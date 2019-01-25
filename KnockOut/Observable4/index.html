@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="tablesorter/themes/blue/style.css" media="screen">
+	<title>Observable 4</title>
+	<script type="text/javascript" src="../knockout.js"></script>
+	<script type="text/javascript" src="tablesorter/jquery-latest.js"></script>
+	<script type="text/javascript" src="tablesorter/jquery.tablesorter.js"></script>
+	
+	
+	<script type="text/javascript" >
+
+	</script>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		header, footer, section, aside, nav, article {
+			display: block;
+		}
+		body {
+			line-height: 1;
+			background: #A4A4A4;
+			font-family: Verdana, Arial, Helvetica, sans-serif;
+			color: #666;
+			line-height: 18px;
+		}
+
+		#wrapper {
+			width: 940px;
+			margin: 0 auto;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			-webkit-box-shadow: 3px 3px 7px #777;
+			-moz-box-shadow: 3px 3px 7px #777;
+		}
+
+		header{
+			position: relative;
+			width: 940px;
+			height: 200px;
+			margin: 0 auto;
+			background: #D2E1F6;
+		}
+
+		#main {
+			width: 940px;
+			margin: 0 auto;
+			padding: 10px 0 10px 0;
+			background: #FFF;
+			overflow: hidden;
+		}
+
+		#content {
+			float: right;
+			width: 590px;
+			margin-right: 30px;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#mytable").tablesorter();
+		var EstudianteModel = function(estudiantes){
+			var self = this;
+			self.estudiantes = ko.observableArray(estudiantes);
+			self.addestudiante = function(){
+				self.estudiantes.push({
+					codigo: "",
+					nombre: "",
+					materia: "",
+					nota: ""
+				});
+
+			};
+
+			self.removerestudiante = function() {
+				self.estudiantes.removeAll();
+			};
+
+			self.imprimir = function(){
+				window.print();
+			};
+
+		}
+		var modelo = new EstudianteModel([
+				{codigo: "1090" ,nombre:"Jose Carlos", materia: "Matematicas", hora: "08:00-12:00"},
+				{codigo: "1090" ,nombre:"Felipe", materia: "Matematicas", hora: "08:00-12:00"},
+				{codigo: "1090" ,nombre:"Stefany", materia: "Quimica", hora: "08:00-12:00"},
+				{codigo: "1090" ,nombre:"Andres", materia: "Ingles", hora: "08:00-12:00"}
+			]);
+		ko.applyBindings(modelo);
+		});
+	</script>
+	<div id="wrapper">
+		<section id="main">
+			<section id="">
+				<b><h3><p>Listado de Registros de estudiantes</p></h3></b>
+				<form action="">
+					<br>
+					<table data-bind ="visible:estudiantes().length > 0" class="tablesorter" id="mytable">
+						<thead>
+							<tr>
+								<th>Codigo</th>
+								<th>Nombre</th>
+								<th>Materia</th>
+								<th>Hora</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: estudiantes">
+							<tr>
+								<td><input type="text" data-bind="value: codigo"></td>
+								<td><input type="text" data-bind="value: nombre"></td>
+								<td>
+									<select name="" >
+										<option >Matematicas</option>
+										<option >Fisica</option>
+										<option >Quimica</option>
+										<option >Español</option>
+										<option >Ingles</option>
+									</select>
+								</td>
+								<td><input type="text" data-bind="value: hora"></td>
+							</tr>
+						</tbody>
+					</table>
+					<button data-bind="click: addestudiante">Agregar Campo</button>
+					<button data-bind="click: imprimir">Imprimir Listado</button>
+					<button data-bind="click: removerestudiante">Quitar Campos</button>
+					<br>
+					<br>
+					<p>Agregados a tu lista </p><b><span data-bind="text: estudiantes().length"> Estudiantes</span></b>
+					<br>
+				</form>
+			</section>
+		</section>
+	</div>
+	
+</body>
+</html>

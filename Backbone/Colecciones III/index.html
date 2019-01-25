@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	<div class="page-header">
+		<h1>Gestion de Medicos</h1>
+	</div>
+	<div class="container">
+		<h2>Registro de Medicos</h2>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<label for="id" class="label-control">ID:</label>
+						<input type="text" id="id" class="form-control" placeholder="Ingrese el ID">
+					</div>
+
+					<div class="form-group">
+						<label for="nombre" class="label-control">Nombre:</label>
+						<input type="text" id="nombre" class="form-control" placeholder="Ingrese el Nombre">
+					</div>
+
+					<div class="form-group">
+						<label for="especialidad" class="label-control">Especialidad</label>
+						<select class="form-control" id="especialidad">
+							<option value="">Elija una opcion</option>
+							<option value="Cardiologia">Cardiologia</option>
+							<option value="Gastroenterologia">Gastroenterologia</option>
+							<option value="Pediatria">Pediatria</option>
+							<option value="Medicina Interna">Medicina Interna</option>
+							<option value="Odontologia">Odontologia</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="telefono" class="label-control">Telefono:</label>
+						<input type="text" id="telefono" class="form-control" placeholder="Ingrese el Telefono">
+					</div>	
+					
+					<div class="form-group">
+						<label for="email" class="label-control">Email:</label>
+						<input type="text" id="email" class="form-control" placeholder="Ingrese el Email">
+					</div>
+
+				</form>
+				<button id="btnRegistrarMedico" class="btn btn-default">Registrar</button>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<h2>Busqueda Medicos</h2>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-4">
+						<label for="criterioBusqueda">Criterio:</label>
+						<select class="form-control" id="criterioBusqueda">
+							<option value="">Elija una Opcion</option>
+							<option value="Nombre">Nombre</option>
+							<option value="Especialidad">Especialidad</option>
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="busquedaMedico">Campo:</label>
+							<input type="text" class="form-control" id="busquedaMedico" placeholder="Digite el campo">
+						</div>
+					</div>
+					<div style="margin-top: 25px;" class="col-sm-4">
+						<button id="btnBuscarMedico" class="btn btn-default">Buscar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th id="columnaNombre">Id</th>
+					<th>Nombre</th>
+					<th>Especialidad</th>
+					<th>Telefono</th>
+					<th>Correo</th>
+				</tr>
+			</thead>
+			<tbody id="listaMedicos">
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Router en BackBone</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+
+</head>
+<body>
+	<div class="container" id="contenedorVistas">
+		
+	</div>
+	<script type="text/template" id="plantillaInicio">
+		<form >
+			<legend>Buzon de Sugerencias</legend>
+			<div class="form-group">
+				<button id="btnVistaRegistrarSugerencia" class="btn btn-success" >Registrar Sugerencias</button>
+				<button id="btnVistaListadoSugerencias" class="btn btn-success">Listado Sugerencias</button>
+			</div>
+		</form>
+	</script>
+
+	<script type="text/template" id="plantillaRegistroSugerencia">
+		<form >
+			<legend>Registrar Sugerencia</legend>
+			<div class="form-group">
+				<label class="control-label" for="id">ID</label>
+				<input type="text" id="id" class="form-control" disabled="">
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="titulo">Titulo</label>
+				<input type="text" id="titulo" class="form-control" >
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="descripcion">Descripcion</label>
+				<textarea id="descripcion" class="form-control"> </textarea>
+			</div>
+			<div class="form-group">
+				<button id="btnRegistrarSugerencia" class="btn btn-success">Registrar</button>
+				<button type="reset" class="btn">Cancelar</button>
+				<button  class="btn btn-danger" id="btnSalir">Salir</button>
+			</div>
+		</form>
+	</script>
+
+	<script type="text/template" id="plantillaListadoSugerencias">
+		
+		<form >
+			<legend>Listado de Sugerencias</legend>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Titulo</th>
+						<th>Descripcion</th>
+					</tr>
+				</thead>
+				<tbody id="listaSugerencias">
+					
+				</tbody>
+			</table>
+			<div class="form-group">
+				<button id="btnSalir" class="btn">Salir</button>
+			</div>
+		</form>
+	</script>
+
+	<div class="modal fade" id="modalMostrarSugerencia" tabindex="-1" role="dialog" aria-hidden="true" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel" >Detalle Sugerencia</h4>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="detalleID" class="control-label">ID</label>
+							<input type="text" id="detalleID" class="form-control" readonly="true">
+						</div>
+						<div class="form-group">
+							<label for="detalleTitulo" class="control-label">Titulo</label>
+							<input type="text" id="detalleTitulo" class="form-control" readonly="true">
+						</div>
+						<div class="form-group">
+							<label for="detalleDescripcion" class="control-label">Descripcion</label>
+							<textarea type="text" id="detalleDescripcion" class="form-control" readonly="true"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>			
+		</div>
+	</div>
+
+
+</body>
+<script type="text/javascript" src="js/modelos.js"></script>
+<script type="text/javascript" src="js/collections.js"></script>
+<script type="text/javascript" src="js/views.js"></script>
+<script type="text/javascript" src="js/routers.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</html>

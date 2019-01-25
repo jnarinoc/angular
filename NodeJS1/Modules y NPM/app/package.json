@@ -1,0 +1,14 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Aplicacion NPM y Modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felipe Narino",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}

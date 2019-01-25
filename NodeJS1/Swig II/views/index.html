@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block edades %}
+	<h1>Usuarios agrupados por edad</h1>
+	<ul>
+		{% for grupos in usuarios | groupBy('age')%}
+		<h2>Tienen {{loop.key}} años</h2>
+		<ul>
+			{% for user in grupos %}
+			<li>{{ user.name }}</li>
+			{% endfor %}
+		</ul>
+		{% endfor %}
+	</ul>
+{% endblock %}
+
+{%block nombres%}
+	<h1>Usuarios Filtrados si tienen el mismo nombre</h1>
+	<ul>
+		{% for user in usuarios | uniqObject('name') %}
+		<li>
+			{{ user.name }}
+		</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

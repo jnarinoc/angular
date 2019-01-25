@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="tablesorter/jquery-latest.js"></script>
+	<script src="js/knockout.js"></script>
+	<script src="tablesorter/jquery.tablesorter.js"></script>
+	<link rel="stylesheet" type="text/css" href="tablesorter/themes/blue/style.css" media="screen">
+	<script src="js/datos-ejemplo.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('#mytable').tablesorter();
+			my.formatearCifra = function(value){
+				return value;
+			}
+			my.Producto = function(){
+				this.codigo = ko.observable();
+				this.nombre = ko.observable();
+				this.precio = ko.observable();
+			};
+
+			my.Elemento = function(){
+				var self = this;
+				self.producto = ko.observable();
+				self.cantidad = ko.observable();
+				self.precioExtend = ko.computed(function(){
+					return self.producto.precio * parseInt(self.cantidad);
+				});
+			};
+
+			my.vm = {
+				metadata: {
+					paginaTitulo: "Compra productos"
+				},
+				productos: ko.observableArray([]),
+				elementos: ko.observableArray([new my.Elemento()]),
+				agregarElemento : function(){
+					my.vm.elementos.push(new my.Elemento());
+				},
+				eliminarElemento : function(elemento){
+					my.vm.elementos.remove(elemento);
+				},
+				cargarProductos: function(){
+					$.each(my.DatosEjemplo.datos.productos, function(i,p){
+						my.vm.productos.push(new my.Producto()
+							.codigo(p.codigo)
+							.nombre(p.nombre)
+							.precio(p.precio)
+						)
+					});
+				}
+			};
+			my.vm.granTotal = ko.computed(function(){
+				var total = 0;
+				$.each(this.elementos(), function(){
+					total += this.precioExtend();
+				});
+				return total;
+			}, my.vm);
+			my.vm.cargarProductos();
+			ko.applyBindings(my.vm);
+		});
+	</script>
+</head>
+<body>
+	<div>
+		<div data-bind="with: metadata">
+			<h1 data-bind="text: paginaTitulo"></h1>
+		</div>
+	</div>
+	<div id="main">
+		<div>
+			<div>
+				<table id="mytable" class="tablesorter">
+					<thead>
+						<tr>
+							<th>Producto</th>
+							<th>Precio</th>
+							<th>Cantidad</th>
+							<th>Eliminar</th>
+						</tr>
+					</thead>
+					<tbody data-bind="foreach: elementos">
+						<tr>
+							<td style="width: 25px;">
+								<select data-bind="options: $parent.productos, value: producto, optionsText:'nombre', optionsCaption:'Seleccione un producto'"></select>
+							</td>
+							<td data-bind="if:producto" style="width: 100px;">
+								<span data-bind="text: my.formatearCifra(producto().precio())"></span>
+							</td>
+							<td style="width: 100px;" >
+								<input data-bind='visible:producto, value: cantidad, valueUpdate: "afterkeydown"'>
+							</td>
+							<td style="width: 100px;" >
+								<a href="#" data-bind="click: $parent.eliminarElemento">Eliminar</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>Total compra <span data-bind="text: my.formatearCifra(granTotal())"></span></p>
+				<button data-bind="click: agregarElemento">Agregar Producto</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

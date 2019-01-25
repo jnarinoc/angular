@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Router en BackBone</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="js/backgrid.css">
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/backbone-pageable.js"></script>
+	<script type="text/javascript" src="js/backgrid.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+
+</head>
+<body>
+	<div class="page-header">
+		<h1>Tienda de Zapatos</h1>
+	</div>
+	<div class="container">
+		<h2>Registro de Zapatos</h2>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<label for="codigo" class="control-panel">Codigo</label>
+						<input type="text" id="codigo" class="form-control" placeholder="ingrese el codigo">
+					</div>
+					<div class="form-group">
+						<label for="marca" class="control-panel">Marca</label>
+						<input type="text" id="marca" class="form-control" placeholder="ingrese la marca">
+					</div>
+					<div class="form-group">
+						<label for="modelo" class="control-panel">Modelo</label>
+						<input type="text" id="modelo" class="form-control" placeholder="ingrese el modelo">
+					</div>
+					<div class="form-group">
+						<label for="cantidad" class="control-panel">Cantidad</label>
+						<input type="text" id="cantidad" class="form-control" placeholder="ingrese la cantidad">
+					</div>
+					<div class="form-group">
+						<label for="precio" class="control-panel">Precio</label>
+						<input type="text" id="precio" class="form-control" placeholder="ingrese el precio">
+					</div>
+				</form>
+				<button id="btnRegistrarZapato" class="btn btn-success">Registrar</button>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div id="listaZapatos">
+			
+		</div>
+	</div>
+</body>
+
+</html>

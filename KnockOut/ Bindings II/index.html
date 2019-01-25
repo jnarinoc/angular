@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width initial-scale=1.0">
+	<style>
+		form-ui input {
+			margin: 5px 10px 0 10px;
+		}
+
+		.form-label {
+			display: inline-block;
+			width: 100px;
+		}
+
+	</style>
+
+	<script type="text/javascript" src="js/knockout.js"></script>
+	<script type="text/javascript" src="js/jquery-latest.js"></script>
+	<script type="text/javascript" >
+	$(document).ready(function(){
+		function Empleado(){
+			var self = this;
+			self.baseDatos = ko.observableArray([{nombre: "", apellido: "", fecha_nacimiento: "", optionValues:"", radioSelectedOptionValue:"", BRprofesion: "", selectedOptionValue: ""}]);
+			self.telefonos = ko.observableArray();
+			self.nombre = ko.observable();
+			self.apellido = ko.observable();
+			self.fecha_nacimiento = ko.observable();
+			self.optionValues = ["Administrativo", "Contabilidad", "Sistemas", "Operativo", "Contro de Calidad"];
+			self.selectedOptionValue = ko.observable("Administrativo");
+			self.radioSelectedOptionValue = ko.observable("Masculino");
+			self.BRprofesion = ko.observable("Profesional Academico");
+
+			numero = ko.observable();
+			tieneAcargo = ko.observable(false);
+			aCargo = ko.observable();
+
+			self.borrarNumero = function(){
+				var id = $('txt_telefono').val();
+				self.telefonos.remove(function(telefonos){
+					return telefonos;
+				});
+			}
+
+			self.addTelefono = function(){
+				var ax = numero;
+				self.telefonos.push(function(telefonos){
+					return telefonos = ax;
+				});
+			}
+
+			self.guardarEmpleado = function(){
+				if (self.nombre == null){
+					alert("Debe digitar el nombre del empleado");
+				}
+				else {
+					var n = nombre;
+					var a = apellido;
+					var fc = fecha_nacimiento;
+					var op = optionValues;
+					var grb = radioSelectedOptionValue;
+					var br = BRprofesion;
+					var dpto = selectedOptionValue;
+					self.baseDatos.push({nombre: n, apellido: a, fecha_nacimiento: fc, optionValues:op, radioSelectedOptionValue:grb, BRprofesion: br, selectedOptionValue: selectedOptionValue});
+
+				}
+			}
+
+		};
+		var e = Empleado();
+		ko.applyBindings(e);
+	});
+		
+
+	</script>
+</head>
+<body>
+	<table border="1" style="margin: 0 auto; border:0;">
+		<thead>
+			<tr>
+				<th>Registro de persona Empresarial</th>
+				<th>Asignacion de lineas telefonicas y Contactos</th>
+			</tr>
+		</thead>
+		<tbody>
+			<td>
+				<form id="employeeForm" name="employeeForm" method="POST">
+					<div id="form-root">
+						<label class="form-label">Nombre:</label>
+						<input type="text" id="nombre" data-bind="value: nombre">
+					</div>
+					<div>
+						<label class="form-label">Apellido:</label>
+						<input type="text" id="apellido" data-bind="value: apellido">
+					</div>
+					<div>
+						<label class="form-label">Fecha de Cumpleaños:</label>
+						<input type="text" id="fecha_nacimiento" data-bind="value: fecha_nacimiento">
+					</div>
+					<div>
+						<label class="form-label">Nivel de Estudio:</label>
+						<input type="radio" name="levelEstudio" value="profesional Academico" data-bind="checked: BRprofesion">Profesional Academico </input>
+						<input type="radio" name="levelEstudio" value="postgrado" data-bind="checked: BRprofesion">Postgrado </input>
+						<input type="radio" name="levelEstudio" value="maestria" data-bind="checked: BRprofesion">Maestria</input>
+						<input type="radio" name="levelEstudio" value="Bachiller Academico" data-bind="checked: BRprofesion">Bachiller</input>
+					</div>
+					<div>
+						<label class="form-label">Genero:</label>
+						<input type="radio" name="gender" value="Masculino" data-bind="checked: radioSelectedOptionValue">Masculino </input>
+						<input type="radio" name="gender" value="Femenino" data-bind="checked: radioSelectedOptionValue">Femenino </input>
+					</div>
+					<div>
+						<label class="form-label">Departamento Asignado</label>
+						<select data-bind="options: optionValues, value: selectedOptionValue"></select>
+					</div>
+					<div>
+						<input type="button" id="btnSubmit" value="Registrar" data-bind="click: guardarEmpleado">
+						<input type="reset" id="btnReset" value="Cancelar" >
+					</div>
+				</form>
+			</td>
+			<td>
+				<p>Libreta de contactos empresariales</p>
+				Numero: <input type="text" id="txt_telefono" data-bind="value: numero">
+				<button data-bind="click: addTelefono">Agregar</button>
+				<ul data-bind="foreach: telefonos">
+					<li>
+						<span data-bind="text: numero"></span>
+						<button data-bind="click: borrarNumero">Borrar</button>
+						<input type="checkbox" data-bind="checked:tieneAcargo">Tiene a cargo
+						<input type="text" data-bind="value: aCargo, visible:tieneAcargo">
+					</li>
+				</ul>
+			</td>
+		</tbody>
+	</table>
+	<br><br>
+	<table border="1" style="margin: 0 auto; ">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Fecha de Cumpleaños</th>
+				<th>Profesion</th>
+				<th>Genero</th>
+				<th>Departamento Asignado</th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach : baseDatos">
+			<tr>
+				<td data-bind="text: $data.nombre"></td>
+				<td data-bind="text: $data.apellido"></td>
+				<td data-bind="text: $data.fecha_nacimiento"></td>
+				<td data-bind="text: $data.BRprofesion"></td>
+				<td data-bind="text: $data.gender"></td>
+				<td data-bind="text: $data.departamento"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

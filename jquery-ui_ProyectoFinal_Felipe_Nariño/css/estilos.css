@@ -1,0 +1,97 @@
+
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#contenedor{
+			border-style: solid;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background: url("../images/fondo.jpg");
+		}
+		#opacidad{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.5);
+		}
+		#marcador {
+			border-style: solid;
+			margin: 5px 20px;
+			width: 90%;
+			background-color: white;
+
+		}
+		td{
+			text-align: center;
+		}
+		#midiv1{
+			position: absolute;
+			width: 30%;
+			left: 50px;
+			top: 50px;
+		}
+		#midiv2{
+			position: absolute;
+			left: 60%;
+			border-style: solid;
+			width: 30%;
+			height: 20%;
+			top: 30%;
+			border-radius: 8px;
+			background-color: white;
+		}
+		.cuadro{
+			position: relative;
+			width: 60px;
+			height: 60px;
+			border-style: solid;
+		}
+		.ficha{
+			margin-left: 10px;
+			
+			margin-top: 10px;
+			position: absolute;
+			z-index: 1;
+			width: 40px;
+			height: 40px;
+			border-radius: 20px;
+			background-color: blue;
+
+		}
+		.ficharoja{
+			margin-left: 10px;
+			
+			margin-top: 10px;
+			position: absolute;
+			z-index: 1;
+			width: 40px;
+			height: 40px;
+			border-radius: 20px;
+			background-color: red;
+
+		}
+		#tabla{
+			position: relative;
+			//margin-left: 30%;
+			z-index: 0;
+		}
+		.ui-button{
+			margin-left: 40%;
+		}
+		p{
+			text-align: center;
+		}
+		#turno{
+			font-family: Verdana;
+			font-size: 25px;
+			margin-top: 50px;
+		}
+		.reina{
+			width: 20px;
+			height: 20px;
+		}
+		#ventana{
+			visibility: hidden;
+		}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jquery ajax</title>
+	<script type="text/javascript" src="js/jquery.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax(
+			{
+				url: "http://127.0.0.1:3000/usuarios",
+				type: 'GET',
+				success: function(response){
+					console.log(response);
+				}
+			}
+		);
+	});
+</script>
+</html>

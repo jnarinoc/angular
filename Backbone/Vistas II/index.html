@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vistas en BackBone</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	<div class="page-header">
+		<h1>Listado de Clientes</h1>
+	</div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Direccion</th>
+				<th>Telefono</th>
+				<th>Email</th>
+			</tr>
+			
+			<tbody id="listaClientes"></tbody>
+
+		</thead>
+	</table>
+	<script  id="plantillaCliente" type="text/template">
+		<td>
+		<%=nombre%>
+		</td>
+		<td>
+		<%=apellido%>
+		</td>
+		<td>
+		<%=direccion%>
+		</td>
+		<td>
+		<%=telefono%>
+		</td>
+		<td>
+		<%=email%>
+		</td>
+	</script>
+</body>
+</html>

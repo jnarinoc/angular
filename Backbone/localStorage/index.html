@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Local Storage en BackBone</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/backbone.localStorage.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+
+</head>
+<body>
+	<div class="page-header">
+		<h1>Gestion Pacientes</h1>
+	</div>
+	<div class="container">
+		<h2>Registro Pacientes</h2>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<label for="id" class="control-panel">id</label>
+						<input type="text" id="id" class="form-control" placeholder="ingrese el id">
+					</div>
+					<div class="form-group">
+						<label for="nombre" class="control-panel">nombre</label>
+						<input type="text" id="nombre" class="form-control" placeholder="ingrese el nombre">
+					</div>
+					<div class="form-group">
+						<label for="peso" class="control-panel">peso</label>
+						<input type="text" id="peso" class="form-control" placeholder="ingrese el peso">
+					</div>
+					<div class="form-group">
+						<label for="estatura" class="control-panel">estatura</label>
+						<input type="text" id="estatura" class="form-control" placeholder="ingrese la estatura">
+					</div>
+					
+				</form>
+				<button id="btnRegistrarPaciente" class="btn btn-success">Registrar</button>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Peso</th>
+					<th>Estatura</th>
+				</tr>
+			</thead>
+			<tbody id="listaPacientes">
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

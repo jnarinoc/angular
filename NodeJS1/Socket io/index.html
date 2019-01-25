@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Web Socket y Socket IO</title>
+	<script type="text/javascript" src="/socket.io/socket.io.js" ></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+	
+</head>
+<body style="font-family: Verdana;">
+	<div class="container">
+		<div class="row" style="padding-top: 40px;">
+			<h3 class="text-center">Bootstrap Chat Example</h3>
+			<br><br>
+			<div class="col-md-8">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						Historial Reciente
+					</div>
+					<div class="panel-body">
+						<ul class="media-list" id="cuerpo-chat">
+							
+						</ul>
+					</div>
+					<div class="panel-footer">
+						<form id="form">
+							<div class="input-group">
+								<input type="text" id="message" name="message" class="form-control" placeholder="Ingrese mensaje">
+								<span class="input-group-btn"><button class="btn btn-info" type="submit">Enviar</button></span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						Usuarios en linea
+					</div>
+					<div class="panel-body">
+						<ul class="media-list" id="cuerpo-online">
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var socket = io();
+
+		var usuario = prompt("Escribe tu nickname", "Incognito");
+		if (usuario != null){
+			socket.emit("new user", usuario);
+		}
+
+		$("#form").submit(function(event){
+			socket.emit('chat message', {usuario: usuario, mensaje: $("#message").val()});
+			$("#message").val("");
+			return false;
+		});
+
+		socket.on("chat message", function(msg){
+			$("#cuerpo-chat").append($("<li>").html("<strong>"+msg.usuario+"</strong>:"+msg.mensaje));
+		});
+
+		socket.on("new user", function(usuarios){
+			$("#cuerpo-online").html('');
+			$.each(usuarios, function(i, usuario){
+				$("#cuerpo-online").append($('<li>').text(usuario.nombre));
+			})
+		});
+	</script>
+</body>
+</html>

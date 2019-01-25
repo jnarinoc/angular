@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block crear_usuario %}
+<form role="form" action="/usuario" method="POST">
+	<div class="form-group">
+		<label for="nombre" class="control-label">Nombre</label>
+		<input type="text" id="nombre" name="nombre" class="form-control">
+	</div>
+
+	<div class="form-group">
+		<label for="edad" class="control-label">Edad</label>
+		<input type="text" id="edad" name="edad" class="form-control">
+	</div>
+
+	<div class="form-group">
+		<label for="genero" class="control-label">Genero</label>
+		<input type="text" id="genero" name="genero" class="form-control">
+	</div>
+
+	<div class="form-group">
+		<label for="email" class="control-label">Email</label>
+		<input type="text" id="email" name="email" class="form-control">
+	</div>
+
+	<div class="form-group">
+		<label for="telefono" class="control-label">Telefono</label>
+		<input type="text" id="v" name="telefono" class="form-control">
+	</div>
+
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+{% endblock %}

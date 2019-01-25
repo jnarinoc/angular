@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+   
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<![endif]-->
+<title>BOOTSTRAP CHAT EXAMPLE</title>
+<!-- BOOTSTRAP CORE STYLE CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+
+<body style="font-family:Verdana" onload="init()">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+               <a class="navbar-brand" href="#">Editor de Imagenes </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="/galeria">Galeria</a></li>
+                <li><a href="/subirarchivo">Subir Imagen</a></li>
+            </ul>
+        </div>
+    </nav>
+    <img id="imagencarga" width="400" height="400" style="position: absolute; left: 200px;top: 200px;" ></img>
+    <canvas id="can" width="400" height="400" style="position: absolute; left: 200px;top: 200px; border:2px solid;background-color: rgba(0,0,0,.1);"></canvas>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1" onclick="color(this)" id="black" style="background-color: black; width: 50px; height: 50px;border: 2px #000 solid;margin: 10px;"></div>
+            <div class="col-sm-1" onclick="color(this)" id="yellow" style="background-color: yellow; width: 50px; height: 50px;border: 2px #000 solid;margin: 10px;"></div>
+            <div class="col-sm-1" onclick="color(this)" id="blue" style="background-color: blue; width: 50px; height: 50px;border: 2px #000 solid;margin: 10px;"></div>
+            <div class="col-sm-1" onclick="color(this)" id="red" style="background-color: red; width: 50px; height: 50px;border: 2px #000 solid;margin: 10px;"></div>
+            <div class="col-sm-1" onclick="color(this)" id="green" style="background-color: green; width: 50px; height: 50px;border: 2px #000 solid;margin: 10px;"></div>
+            <div class="col-sm-1" onclick="color(this)" id="white" style="background-color: white; width: 50px; height: 50px;border: 2px #000 solid;margin: 10px;"></div>
+            <div class="col-sm-1" onclick="color(this)" id="orange" style="background-color: orange; width: 50px; height: 50px;border: 2px #000 solid;margin: 10px;"></div>
+        </div>
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-primary" id="cargarimagen">Cargar Imagen</button>
+        </div>
+        
+    </div>
+     <script>
+      var socket = io();
+    
+     var usuario = {{usuario | json_encode | safe }};
+     var imagen = {{imagen | json_encode | safe }};
+
+     $("#cargarimagen").on("click", function(){
+        $("#imagencarga").attr("src", imagen);
+        socket.emit('chat image', { imagen: imagen });
+     });
+
+
+     socket.emit('new user', usuario);
+
+      $('#form').submit(function(event){
+
+        socket.emit('chat message', { usuario : usuario, mensaje : $('#message').val() });
+        $('#message').val('');
+        return false;
+      });
+
+        socket.on('chat image', function(imagenes){
+            $.each(imagenes, function(i, imagen){
+                $("#imagencarga").attr("src", imagen);
+            });
+        }); 
+
+
+
+        socket.on('new user', function(usuarios){
+            $('#cuerpo-online').html('');
+            $.each(usuarios, function(i, usuario){
+                $('#cuerpo-online').append($('<li>').text(usuario));
+            });
+        }); 
+
+        var canvas, ctx, flag = false,
+        prevX = 0,
+        currX = 0,
+        prevY = 0,
+        currY = 0,
+        dot_flag = false;
+
+    var x = "black",
+        y = 2;
+    
+    function init() {
+        canvas = document.getElementById('can');
+        ctx = canvas.getContext("2d");
+        w = canvas.width;
+        h = canvas.height;
+        
+        canvas.addEventListener("mousemove", function (e) {
+            
+            if(e.buttons == 1){
+                findxy('move', e);
+                socket.emit('chat message', { usuario : usuario, x:e.clientX,y:e.clientY ,visible:1,color: x});
+            }
+        }, false);
+        canvas.addEventListener("mousedown", function (e) {
+            findxy('down', e);
+        }, false);
+        canvas.addEventListener("mouseup", function (e) {
+            findxy('up', e)
+        }, false);
+        canvas.addEventListener("mouseout", function (e) {
+            findxy('out', e)
+        }, false);
+    }
+    
+    function color(obj) {
+        switch (obj.id) {
+            case "green":
+                x = "green";
+                break;
+            case "blue":
+                x = "blue";
+                break;
+            case "red":
+                x = "red";
+                break;
+            case "yellow":
+                x = "yellow";
+                break;
+            case "orange":
+                x = "orange";
+                break;
+            case "black":
+                x = "black";
+                break;
+            case "white":
+                x = "white";
+                break;
+        }
+        if (x == "white") y = 14;
+        else y = 2;
+    
+    }
+    
+    function draw() {
+        ctx.beginPath();
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(currX, currY);
+        ctx.strokeStyle = x;
+        ctx.lineWidth = y;
+        ctx.stroke();
+        ctx.closePath();
+    }
+    
+    function erase() {
+        var m = confirm("Want to clear");
+        if (m) {
+            ctx.clearRect(0, 0, w, h);
+            document.getElementById("canvasimg").style.display = "none";
+        }
+    }
+    
+    function save() {
+        document.getElementById("canvasimg").style.border = "2px solid";
+        var dataURL = canvas.toDataURL();
+        document.getElementById("canvasimg").src = dataURL;
+        document.getElementById("canvasimg").style.display = "inline";
+    }
+     socket.on('chat message', function(msg){
+        if(msg.visible == 1){
+            prevX = currX;
+            prevY = currY;
+            currX = msg.x - canvas.offsetLeft;
+            currY = msg.y - canvas.offsetTop;
+            x = msg.color;
+            draw();
+        }   
+        });
+    
+    function findxy(res, e) {
+        if (res == 'down') {
+            prevX = currX;
+            prevY = currY;
+            currX = e.clientX - canvas.offsetLeft;
+            currY = e.clientY - canvas.offsetTop;
+    
+            flag = true;
+            dot_flag = true;
+            if (dot_flag) {
+                ctx.beginPath();
+                ctx.fillStyle = x;
+                ctx.fillRect(currX, currY, 2, 2);
+                ctx.closePath();
+                dot_flag = false;
+            }
+        }
+        if (res == 'up' || res == "out") {
+            flag = false;
+        }
+        if (res == 'move') {
+            if (flag) {
+                prevX = currX;
+                prevY = currY;
+                currX = e.clientX - canvas.offsetLeft;
+                currY = e.clientY - canvas.offsetTop;
+                draw();
+            }
+        }
+    }
+
+    function findxyCopia(res, x1, y1) {
+        if (res == 'down') {
+            prevX = currX;
+            prevY = currY;
+            currX = x1 - canvas.offsetLeft;
+            currY = y1 - canvas.offsetTop;
+    
+            flag = true;
+            dot_flag = true;
+            if (dot_flag) {
+                ctx.beginPath();
+                ctx.fillStyle = x;
+                ctx.fillRect(currX, currY, 2, 2);
+                ctx.closePath();
+                dot_flag = false;
+            }
+        }
+        if (res == 'up' || res == "out") {
+            flag = false;
+        }
+        if (res == 'move') {
+            if (flag) {
+                prevX = currX;
+                prevY = currY;
+                currX = x1 - canvas.offsetLeft;
+                currY = y1 - canvas.offsetTop;
+                draw();
+            }
+        }
+    }
+       
+    </script>
+</body>
+
+</html>

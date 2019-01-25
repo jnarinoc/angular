@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h2>Gestion Articulo</h2>
+		
+	</div>
+	<div class="container">
+		<h2>Registro Arcitulo</h2>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<label for="codigo" class="label-control">Codigo:</label>
+						<input type="text" class="form-control" id="codigo" placeholder="digite el codigo">
+					</div>
+					<div class="form-group">
+						<label for="nombre" class="label-control">Nombre:</label>
+						<input type="text" class="form-control" id="nombre" placeholder="digite el nombre">
+					</div>
+					<div class="form-group">
+						<label for="descripcion" class="label-control">Descripcion:</label>
+						<textarea id="descripcion" cols="50" rows="4" class="form-control" placeholder="digite la descripcion"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="precio" class="label-control">Precio:</label>
+						<input type="text" class="form-control" id="precio" placeholder="digite el precio">
+					</div>
+				</form>
+				<button id="btnRegistrarArticulo" class="btn btn-default">Registrar</button>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<h2>Listado Articulos</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>Nombre</th>
+					<th>Descripcion</th>
+					<th>Precio</th>
+					<th>IVA</th>
+				</tr>
+			</thead>
+			<tbody id="listaArticulos">
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

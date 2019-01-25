@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/knockout.js"></script>
+	<script type="text/javascript" src="js/knockstrap.js"></script>
+	<script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script>
+	<script type="text/javascript" src="js/bootstrap/dist/js/bootstrap.js"></script>
+	<link rel="stylesheet" type="text/css" href="js/tablesorter/themes/blue/style.css">
+	<link rel="stylesheet" type="text/css" href="js/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="js/bootstrap/dist/css/bootstrap-theme.min.css">
+
+</head>
+<body >
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-role="#navbar"></button>
+				<a href="#" class="navbar-brand" >Knockout and Bootsrap II</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active">
+						<a href="#" >Registro</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="page-header">
+			<div class="row">
+				<div class="col-lg-8 col-md-7 col-sm-6">
+					<h1>Chekcking  Reservas</h1>
+					<p class="lead"> Sistema de reservas y Checking</p>
+				</div>
+			</div>
+		</div>
+		<form role="form">
+			<div class="row">
+				<fieldset class="col-md-6">
+					<legend>Informacion Personal</legend>
+					
+					<div class="form-group">
+						<label for="name" class="control-label">Nombre</label>
+						<input type="text" class="form-control" id="name" required="" data-bind="value: self.nombre">
+					</div>
+					
+					<div class="form-group">
+						<label for="identificacion" class="control-label">Identificacion</label>
+						<input type="text" class="form-control" id="identificacion" required="" data-bind="value: self.identificacion">
+					</div>
+
+					<div class="form-group">
+						<label for="direccion" class="control-label">Direccion</label>
+						<input type="text" class="form-control" id="direccion" required="" data-bind="value: self.direccion">
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6 form-group">
+							<label for="country" class="control-label">Pais</label>
+							<input class="form-control" id="country">
+						</div>
+
+						<div class="col-sm-6 form-group">
+							<label for="state" class="control-label">Estado</label>
+							<input class="form-control" id="state">
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-sm-6 form-group">
+							<label for="ciudad" class="control-label">Ciudad</label>
+							<input class="form-control" id="ciudad">
+						</div>
+
+						<div class="col-sm-6 form-group">
+							<label for="zipcode" class="control-label">Codigo Postal</label>
+							<input class="form-control" id="zipcode" data-bind="value: self.zipcode">
+						</div>
+					</div>
+
+				</fieldset>
+				<fieldset class="col-md-6">
+					<legend>Informacion de Pago</legend>
+					<div class="form-group">
+						<label for="name-card" class="control-label">Nombre del propietario de la tarjeta</label>
+						<input type="text" class="form-control" id="name-card" data-bind="value: self.propietario">
+					</div>
+
+					<div class="form-group">
+						<label for="card-type" class="control-label">Tipo de Tarjeta de Credito</label>
+						<select class="custom-select" id="card-type" >
+							<option value="0">Seleccione El tipo de Tarjeta</option>
+							<option value="1">American Express</option>
+							<option value="2">MasterCard</option>
+							<option value="3">Visa</option>
+							<option value="4">Otra</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="card-number" class="control-label">Numero de la tarjeta</label>
+						<input type="text" class="form-control" id="card-number" data-bind="value: self.numero">
+					</div>
+					
+					<div class="form-group">
+						<label for="fecha" class="control-label">Fecha</label>
+						<input type="date" class="form-control" id="fecha">
+					</div>
+
+					<div class="col-sm-3 form-group">
+						<label for="ccv" class="control-label">CCV<i class="fafa-question-circle help-icon" data-toggle="tooltip" data-placement="top" title="numero"></i></label>
+						<input type="text" class="form-control" id="ccv" maxlength="3" placeholder="Codigo de seguridad" data-bind="value: self.seguridad">
+					</div>
+
+
+				</fieldset>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<div class="checkbox">
+						<label class="custom-option button">
+							<input type="checkbox" id="remember" name="remember" value="Acepto" data-bind="checked: self.terminos">
+							<span class="button-checkbox"></span>
+						</label>
+						<label for="remember">Acepta <a href="">terminos y condiciones</a></label>
+						<br><br>
+						<button type="reset" class="btn btn-danger">Cancelar Registro de Persona</button>
+					</div>
+				</div>
+				<div class="col-md-6 text-right">
+					<button type="button" class="btn btn-success" data-bind="click: ingresarHuesped" onclick="">Ingresar Registro</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		function Hospedaje(){
+			var self = this;
+			self.huesped = ko.observableArray([]);
+			self.type = ko.observable('info');
+			self.message = ko.observable('Alert Message');
+			self.identificacion = ko.observable().extend({minLength: 5, maxlength: 10});
+			ingresarHuesped = function(){
+				var self = this;
+				self.nombre = ko.observable(' ').extend({minLength:2 , maxlength:10});
+				
+				self.direccion = ko.observable();
+				self.pa = $("#country").val();
+				self.est = $("#state").val();
+				self.ciu = $("#ciudad").val();
+				self.zipcode = ko.observable().extend({minLength: 1, maxlength: 2});
+				self.te = ko.observable(true);
+
+				self.propietario = ko.observable();
+				self.ttc = $("#card-type").val();
+				self.ntc = $("#numero").val();
+				self.m = $("#fecha").val();
+				self.segu = ko.observable().extend({minLength: 3, maxlength: 3});
+				self.huesped.push({nombre:nombre, identificacion: identificacion, direccion: direccion, pa: pa, est: est, ciu:ciu, zipcode: zipcode, te: te, propietario: propietario, ttc: ttc, ntc: ntc, m:m, segu:segu});
+
+				alert("Exito");
+			};
+		}
+		ko.applyBindings(new Hospedaje());
+	</script>
+</body>
+</html>

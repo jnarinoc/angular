@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CRM</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/backbone.localStorage.js"></script>
+	
+</head>
+<body>
+	<div class="container" id="contenedorVistas">
+		
+	</div>
+	<script type="text/template" id="plantillaInicio" >
+		<form>
+			<legend>CRM</legend>
+			<div class="form-group">
+				<button class="btn btn-success" id="btnVistaRegistrarCliente">Registrar Cliente</button>
+				<button class="btn btn-success" id="brnVistaListadoClientes">Listar Clientes</button>
+			</div>
+		</form>
+	</script>
+
+	<script type="text/template" id="plantillaRegistroCliente">
+		<form>
+			<legend>Registro de Clientes</legend>
+			<div class="form-group">
+				<label  class="control-label" for="id" >ID</label>
+				<input type="text" class="form-control" id="id" placeholder="Ingrese el ID">
+			</div>
+			<div class="form-group">
+				<label for="nombre" class="control-label" >Nombre</label>
+				<input type="text" class="form-control" id="nombre" placeholder="Ingrese el Nombre">
+			</div>
+			<div class="form-group">
+				<label for="apellido" class="control-label" >Apellido</label>
+				<input type="text" class="form-control" id="apellido" placeholder="Ingrese el Apellido">
+			</div>
+			<div class="form-group">
+				<label for="edad" class="control-label" >Edad</label>
+				<input type="text" class="form-control" id="edad" placeholder="Ingrese la Edad">
+			</div>
+			<div class="form-group">
+				<label for="telefono" class="control-label" >Telefono</label>
+				<input type="text" class="form-control" id="telefono" placeholder="Ingrese el Telefono">
+			</div>
+			<div class="form-group">
+				<label for="email" class="control-label" >Email</label>
+				<input type="email" class="form-control" id="email" placeholder="Ingrese el Email">
+			</div>
+			<div class="form-group">
+				<button class="btn btn-danger" id="btnSalir">Salir</button>
+				<button class="btn btn-warning" id="btnLimpiarCampos">Limpiar Campos</button>
+				<button class="btn btn-success" id="btnRegistrarCliente">Registrar Cliente</button>
+			</div>
+		</form>
+	</script>
+
+	<script type="text/template" id="plantillaListaClientes">
+		<h2>Listado de Clientes</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Edad</th>
+					<th>Telefono</th>
+					<th>Email</th>
+					<th>Ver</th>
+					<th>Eliminar</th>
+				</tr>
+				<tbody id="listaClientes"></tbody>
+			</thead>
+		</table>
+	</script>
+
+			<div class="modal fade" id="modalMostrarCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Cliente</h4>
+					</div>
+					<div class="modal-body">
+						<form role="form">
+							<div class="form-group">
+								<label  class="control-label" for="detalleId" >ID</label>
+								<input type="text" class="form-control" id="detalleId" disabled="">
+							</div>
+							<div class="form-group">
+								<label for="detalleNombre" class="control-label" >Nombre</label>
+								<input type="text" class="form-control" id="detalleNombre" disabled="">
+							</div>
+							<div class="form-group">
+								<label for="detalleApellido" class="control-label" >Apellido</label>
+								<input type="text" class="form-control" id="detalleApellido" disabled="">
+							</div>
+							<div class="form-group">
+								<label for="detalleEdad" class="control-label" >Edad</label>
+								<input type="text" class="form-control" id="detalleEdad" disabled="">
+							</div>
+							<div class="form-group">
+								<label for="detalleTelefono" class="control-label" >Telefono</label>
+								<input type="text" class="form-control" id="detalleTelefono" disabled="">
+							</div>
+							<div class="form-group">
+								<label for="detalleEmail" class="control-label" >Email</label>
+								<input type="email" class="form-control" id="detalleEmail" disabled="">
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"  data-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+			
+	
+	<script type="text/javascript" src="js/models.js"></script>
+	<script type="text/javascript" src="js/collections.js"></script>
+	<script type="text/javascript" src="js/views.js"></script>
+	<script type="text/javascript" src="js/routers.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>

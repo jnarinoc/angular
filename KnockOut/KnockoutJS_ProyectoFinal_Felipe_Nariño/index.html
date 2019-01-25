@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<title>Plantilla Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <!--link href="css/bootstrap.min.css" rel="stylesheet" media="screen"-->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+ 	<div id="barra">
+ 		
+ 	</div>
+    <br>
+    <br>
+    
+	<div id="contenedor" class="row" >
+		
+        <div id="myCarousel" class="carousel slide col-md-12">
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+          <!-- Carousel items -->
+          <div class="carousel-inner">
+            <div class="active item"><img  src="img/banner598x374-1.jpg" alt="banner1" style="width: 100%; height: 300px;" /></div>
+            <div class="item"><img  src="img/banner598x374-2.jpg" alt="banner2" style="width: 100%; height: 300px;" /></div>
+            <div class="item"><img  src="img/banner598x374-3.jpg" alt="banner3" style="width: 100%; height: 300px;"/></div>
+          </div>
+
+        </div>
+    </div>
+    <br><br>
+   
+	<div class="col-md-1"></div>
+    <section class="row">
+    	<article class="col-md-3">
+    		<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2>Consolas</h2>
+				</div>
+				<div class="panel-body">
+				    <p>
+				    	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit neque maxime, aperiam illo accusantium est, provident dolorem placeat itaque at cupiditate, atque tenetur. Dolores distinctio ratione id voluptates, temporibus accusantium.
+				    </p>
+
+				</div>
+			</div>
+    	</article>
+    	<article class="col-md-4">
+    		<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2>Video Juegos</h2>
+				</div>
+				<div class="panel-body">
+				    <p>
+				    	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit neque maxime, aperiam illo accusantium est, provident dolorem placeat itaque at cupiditate, atque tenetur. Dolores distinctio ratione id voluptates, temporibus accusantium.
+				    </p>
+				</div>
+			</div>
+    	</article>
+    	<article class="col-md-3">
+    		<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2>Membresias</h2>
+				</div>
+				<div class="panel-body">
+				    <p>
+				    	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit neque maxime, aperiam illo accusantium est, provident dolorem placeat itaque at cupiditate, atque tenetur. Dolores distinctio ratione id voluptates, temporibus accusantium.
+				    </p>
+				</div>
+			</div>
+    	</article>
+	</section>
+
+    <script src="js/jquery-2.1.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        	$("#barra").load("navbar.html");
+            $('#myCarousel').carousel({
+            	interval: 2000
+            });
+        });
+    </script>
+</body>
+</html>

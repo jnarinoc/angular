@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="js/jquery-2.1.3.js "></script>
+        <script src="js/kendo.all.min.js"></script>
+        <script src="js/knockout-3.1.0.js"></script>
+        <script src="js/knockout-kendo.min.js"></script>
+        <script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+
+        <link href="css/kendo.common-bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/kendo.bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/kendo.dataviz.min.css" rel="stylesheet"/>
+        <link href="css/kendo.dataviz.bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" >
+        <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" >
+
+
+    </head>
+
+    <body>
+        
+        <div id="barra"></div>
+        <br>
+        <br>
+        
+        <div class="container">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-6">
+                        <h1>Carrito de Compras</h1>
+                        <p class="lead">Estos son los productos Disponibles en nuestro Stock</p>
+                    </div>
+                </div>
+            </div>
+            <div data-bind="kendoGrid: { data: Datos, groupable: true, scrollable: true, sortable: true, pageable: { pageSize: 10 } }"></div>
+            <form role="form">
+                <fieldset>
+                    <legend></legend>
+                </fieldset>
+                <section class="well">
+                    <h2 class="ra-well-title">Selecciona un producto</h2>
+
+                    <div class="form-horizontal form-widgets col-sm-6">
+                       
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="producto">Selecciona un producto</label>
+                                <div class="col-sm-8 col-md-6">
+                                    <input data-bind="kendoDropDownList: { data: choices, value: selectedChoice,change          :$root.elegir }" id="producto" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="precio">Precio</label>
+                                <div class="col-sm-8 col-md-6">
+                                    <input type="text" data-bind="kendoMaskedTextBox: precio" id="precio" disabled="" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="cantidad">Cantidad</label>
+                                <div class="col-sm-8 col-md-6">
+                                    <input type="number" data-bind="kendoMaskedTextBox: cantidad" id="cantidad" />
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="form-horizontal form-widgets col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="occupation">Tu identificación</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" data-bind="kendoMaskedTextBox: iden" id="identificacion" />
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                            <label class="control-label col-sm-4" for="name">Tu Nombre</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" data-bind="kendoMaskedTextBox: nombre" id="nombre"/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+
+        
+
+                    <div class="buttons-wrap">
+                        <button data-bind="click:agregar " class="btn btn-success">Registrar</button>
+                        <input type="reset" value="Cancelar" name="Cancelar" class="btn btn-danger"/>
+                    </div>
+                </section> 
+            </form>
+            <hr/>
+            <div data-bind="kendoGrid: { data: itemsComprar, groupable: true, scrollable: true, sortable: true, pageable: { pageSize: 10 }}"></div>
+            <br>
+            
+        
+            <div class="buttons-wrap">
+                <button data-bind="click:imprimir " class="btn btn-success">Terminar e Imprimir</button>
+            </div>
+        </div>
+        <br>
+        <br>
+    
+        <script>
+
+            $(document).ready(function(){
+                $("#barra").load("navbar.html");
+            });
+            function ModeloVista (){
+                
+                var self = this;
+                
+                lista = [
+                    {codigo:"1", nombre:"Nintendo Switch", valor:"1700000"},
+                    {codigo:"2", nombre:"Xbox One White", valor:"1500000"},
+                    {codigo:"3", nombre:"PsVita 2017", valor:"800000"},
+                    {codigo:"4", nombre:"Fifa 17 EA Sports", valor:"180000"},
+                    {codigo:"5", nombre:"PES 2016", valor:"120000"},
+                    {codigo:"6", nombre:"Super Nintendo Especial Edition", valor:"350000"},
+                    {codigo:"7", nombre:"Halo 5 by Microsoft", valor:"180000"},
+                    {codigo:"8", nombre:"The Last Of Us PS4", valor:"200000"},
+                    {codigo:"9", nombre:"Uncharted 4 PS4", valor:"200000"},
+                    {codigo:"10", nombre:"PsOne Slim", valor:"300000"},
+                    {codigo:"11", nombre:"Guitar Hero III Legends Of Rock Xbox 360", valor:"80000"}
+                ];
+
+                self.eliminar = function(){
+                    alert("HOLA");
+                };
+                self.changeFruit = function(){
+                    alert("HI");
+                }
+                self.Datos = ko.observableArray(lista);
+                self.itemsComprar = ko.observableArray([]);
+                self.nombre = ko.observable();
+                self.iden = ko.observable();
+                self.choices = ko.observableArray(["Nintendo Switch", "Xbox One White","PsVita 2017", "Fifa 17 EA Sports","PES 2016", "Super Nintendo Especial Edition","Halo 5 by Microsoft", "The Last Of Us PS4","Uncharted 4 PS4", "PsOne Slim","Guitar Hero III Legends Of Rock Xbox 360"]);
+
+                self.selectedChoice = ko.observable();
+                self.precio = ko.observable();
+                self.elegir = function(event){
+                    $("#precio").val(traerprecio($("#producto").val()));
+                }
+
+                function traerprecio(product){
+                    for (var i = 0; i <  lista.length; i++) {
+                        if (lista[i]["nombre"] == product){
+                            return lista[i]["valor"];
+                        }
+                    }
+                }
+                
+                self.imprimir = function(){
+                    window.print();
+                }
+                self.agregar = function (){
+                  
+                  var nombre = $('#nombre').val();
+                  var identificacion = $('#identificacion').val();
+                  var precio = $('#precio').val();
+                  var producto = $('#producto').val();
+                  var cantidad = $('#cantidad').val();
+                  self.itemsComprar.push({identificacion: identificacion, nombre:nombre, producto:producto, precio:precio, cantidad: cantidad ,  eliminar: '<button data-bind="click:$root.eliminar" type="button" class="btn btn-danger">Eliminar</button>'});
+                  
+                };
+            }
+            ko.applyBindings(new ModeloVista());
+            
+        </script>
+    </body>
+</html>

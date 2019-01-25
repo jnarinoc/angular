@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/dist/css/bootstrap.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="js/underscore.js"></script>
+	<script type="text/javascript" src="js/backbone.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<style>
+		.cursorClass {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="page-header">
+		<h1>Gestion Medicamentos</h1>
+	</div>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form role="form">
+					<div class="form-group">
+						<label for="nombre" class="label-control">Nombre</label>
+						<input type="text" class="form-control" id="nombre" placeholder="Digite el Nombre">
+					</div>
+
+					<div class="form-group">
+						<label for="contenidoTotal" class="label-control">Contenido total</label>
+						<input type="text" class="form-control" id="contenidoTotal" placeholder="Digite el Contenido total">
+					</div>
+
+					<div class="form-group">
+						<label for="formaFarmaceutica" class="label-control">Forma Farmaceutica</label>
+						<select class="form-control" id="formaFarmaceutica">
+							<option value="">Elija una Opcion</option>
+							<option value="tableta">Tableta</option>
+							<option value="jarabe">Jarabe</option>
+							<option value="crema">Crema</option>
+							<option value="suspension">Suspension</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="fechaCaducidad" class="label-control">Fecha Caducidad</label>
+						<input type="date" class="form-control" id="fechaCaducidad">
+					</div>
+
+					<div class="form-group">
+						<label for="precio" class="label-control">Precio</label>
+						<input type="text" class="form-control" id="precio" placeholder="Digite el Precio">
+					</div>
+				</form>
+				<button id="btnRegistrarMedicamento" class="btn btn-default"> Registrar</button>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<h2>Listado de Medicamentos</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th class="cursorClass" id="columnaNombre">Nombre</th>
+					<th class="" >Contenido total</th>
+					<th class="" >Forma Farmaceutica</th>
+					<th class="" >Fecha Caducidad</th>
+					<th class="cursorClass" id="columnaPrecio">Precio</th>
+				</tr>
+			</thead>
+			<tbody id="listaMedicamentos">
+				
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

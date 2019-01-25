@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width initial-scale=1.0">
+	<style>
+		body{
+			padding: 3%;
+		}
+		header {
+			width: 100%;
+			height: 100px;
+			position: relative;
+		}
+
+		header h1 {
+			float: left;
+			width: 50%;
+		}
+
+		header nav {
+			float: left;
+			width: 50%;
+			position: absolute;
+			bottom: 0;
+		}
+		#content{
+			margin-top: 5%;
+		}
+		#datos-consecionario{
+			float: left;
+			width: 75%;
+		}
+		#coches {
+			float: left;
+			width: 75%;
+			border: 2px solid #888888;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			-moz-box-shadow: 10px 10px 5px #888;
+			-webkit-box-shadow: 10px 10px 5px #888;
+			box-shadow: 10px 10px 5px #888;
+			padding: 2%;
+		}
+		#contenedor-coches{
+			width: 100%;
+		}
+		.datos-coche {
+			width: 25%;
+			float: left;
+		}
+		.reset-float:{
+			clear: left;
+		}
+		.color {
+			width: 15px;
+			height: 10px;
+			margin-left: 2px;
+			border: 1px solid #888888;
+			display: inline-block;
+		}
+	</style>
+
+	<script type="text/javascript" src="js/knockout.js"></script>
+	<script type="text/javascript" src="js/jquery-latest.js"></script>
+	<script type="text/javascript" >
+	$(document).ready(function(){
+		var vistaModelo = new carrosVistaModelo();
+		ko.applyBindings(vistaModelo);
+		$('nav a').click(function(e){
+			vistaModelo.mostrardeposito($(this).attr("id"));
+			return false;
+		});
+	});
+		
+
+	</script>
+	<script type="text/javascript">
+		function carrosVistaModelo(){
+			var self = this;
+			self.ide = ko.observable();
+			self.deposito = ko.observable();
+			self.codi = ko.observable();
+			self.BDcarros = ko.observableArray();
+
+			self.mostrardeposito = function (id){
+				var model = getInformacion(id);
+				self.ide(model.id);
+				self.deposito(model.concesionario);
+				self.codi(model.cif);
+				self.BDcarros(model.coches);
+			};
+			self.removecarro = function (data){
+				self.BDcarros.remove(data);
+			};
+			self.addCarro = function (data){
+				var serializableForm = $(data).serializeArray();
+				var newcar = [];
+				$.each(serializableForm, function(){
+					if(this.name != "color"){
+						newcar[this.name] = this.value;
+					}else {
+						if (!newcar["colores"]){
+							newcar["colores"] = [];
+						}
+						newcar["colores"].push(new Color(this.value));
+					}
+				});
+				self.BDcarros.push(new carro(newcar.marca, newcar, modelo, newcar.colores));
+			};
+			self.mostrardeposito("1");
+		}
+
+		function Color(color){
+			this.color = color;
+		}
+
+		function carro(marca, modelo, colores){
+			this.marca = marca;
+			this.modelo = modelo;
+			this.colores = colores;
+		}
+
+		function getInformacion(id){
+			if (id == "1"){
+				var object = {
+					id : "1",
+					concesionario: 'Automoviles del norte',
+					cif: "3122014",
+					coches: [
+						{
+							marca: "chevrolet",
+							modelo: 'Spark GT',
+							colores : [
+								{
+									color: "red"
+								}
+							]
+						},
+						{
+							marca: "Mercedes Benz",
+							modelo: 'Clase A',
+							colores : [
+								{
+									color: "black"
+								}
+							]
+						},
+						{
+							marca: "Range Rover",
+							modelo: 'Evoque',
+							colores : [
+								{
+									color: "white"
+								},
+								{
+									color: "black"
+								}
+							]
+						}
+					]
+				}
+			}else {
+				var object = {
+					id : "2",
+					concesionario: 'CrossWagen SAS',
+					cif: "3120025",
+					coches: [
+						{
+							marca: "Volkswagen",
+							modelo: 'Jetta',
+							colores : [
+								{
+									color: "black"
+								}
+							]
+						},
+						{
+							marca: "Honda",
+							modelo: 'Pilot',
+							colores : [
+								{
+									color: "blue"
+								}
+							]
+						},
+						{
+							marca: "Volkswagen",
+							modelo: 'Bora',
+							colores : [
+								{
+									color: "white"
+								},
+								{
+									color: "blue"
+								}
+							]
+						}
+					]
+				}
+			}
+			return object;
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<h1>Registro de Carros en el Deposito</h1>
+		<nav>
+			<a href="#" id="1">Deposito 1</a>
+			<a href="#" id="2">Deposito 2</a>
+		</nav>
+	</header>
+	<section id="content">
+	<section id="datos-concesionario">
+		<p data-bind="text: ide"></p>
+		<p data-bind="text: deposito"></p>
+		
+		<div>
+			<form data-bind="submit: addCarro">
+				<label style="display: block;" for="marca">Marca</label>
+				<input type="text" id="marca" name="marca">
+
+				<label style="display: block;" for="modelo">Modelo</label>
+				<input type="text" id="modelo" name="modelo">
+
+				<div>
+					<label for="color">Yellow</label>
+					<input type="checkbox" name="color" value="yellow">
+
+					<label for="color">Blue</label>
+					<input type="checkbox" name="color" value="blue">
+
+					<label for="color">Red</label>
+					<input type="checkbox" name="color" value="red">
+				</div>
+				<input type="submit" value="Agregar Carros">
+			</form>
+		</div>
+	</section>
+	<section id="coches">
+		<div id="contenedor-coches" data-bind="foreach: BDcarros">
+			<div class="datos-coches">
+				<h2 data-bind="text:marca"></h2>
+				<p data-bind="text: modelo"></p>
+				<div data-bind="foreach:colores">
+					<span data-bind="style: {backgroundColor: $data.color}" class="color"></span>
+				</div>
+				<a href="#" data-bind="click:$root.removecarro">Eliminar</a>
+			</div>
+		</div>
+		<div class="reset-float">
+			
+		</div>
+	</section>
+	</section>
+	<section class="reset-float">
+		
+	</section>
+</body>
+</html>

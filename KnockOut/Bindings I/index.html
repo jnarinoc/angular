@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<!--link rel="stylesheet" href="css/style.css" media="screen"-->
+	<style>
+		.big_box{
+			width: 100%;
+			background-color: beige;
+			float: none;
+
+		}
+		.small_box{
+			width: 100px;
+			height: 50px;
+			background-color: aquamarine;
+			float: left;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1><a>Ejemplo de Knockout con Bindings</a></h1>
+		</header>
+		<section id="main">
+			<section id="content">
+				<article>
+					<h2><a href="#" data-bind="style:{color:headerColor}">Knockout JS</a></h2>
+					<p data-bind="visible: showNews">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad dicta, voluptatem autem ullam dolorem rerum, earum saepe eius voluptates. Sit pariatur asperiores incidunt sequi laudantium impedit error neque, laborum eos.
+						<br>
+						<img src="img/knockoutjs.png" width="400" height="88" alt="knockout JS ">
+					</p>
+				</article>
+				<article>
+					<h2><a href="#" data-bind="style:{color:headerColor}">Notas Finales del Curso</a></h2>
+					<div data-bind="visible: showNews2">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quam esse a fugiat, ratione unde, commodi dolores atque sapiente saepe, illum ea corporis! Sed, excepturi, culpa! Natus laborum alias error!
+						</p>
+						<table border="1">
+							<thead>
+								<tr>
+									<th>Nombre Estudiante</th>
+									<th>Nota 1</th>
+									<th>Nota 2</th>
+									<th>Nota 3</th>
+									<th>Nota Final</th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach: notas">
+								<tr>
+									<td data-bind="text: $data.nombre_estudiante"></td>
+									<td data-bind="text: $data.n1"></td>
+									<td data-bind="text: $data.n2"></td>
+									<td data-bind="text: $data.n3"></td>
+									<td data-bind="text: $data.nf"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</article>
+			</section>
+			<aside id="sidebar">
+				<h3>Cosas por Hacer</h3>
+				<ol>
+					<li>
+						<div data-bind="css:linkContainerStyle">
+							<a href="#" data-bind="click: handleClick"></a>
+						</div>
+					</li>
+				</ol>
+			</aside>
+		</section>	
+		<footer>
+			<section id="footer-area">
+				<section id="footer-outer-block">
+					<aside class="footer-segment">
+						
+					</aside>
+					<aside class="footer-segment">
+						
+					</aside>
+				</section>
+			</section>
+		</footer>
+	
+	</div>
+	<script src="js/knockout.js"></script>
+	<script src="js/jquery-latest.js"></script>
+	<script type="text/javascript">
+		function MV(){
+			var self = this;
+			self.showNews = ko.observable(false);
+			self.showNews2 = ko.observable(false);
+			self.notas = ko.observableArray([
+					{nombre_estudiante: "Pedro", n1: "5", n2: "5", n3: "5", nf:"5"}
+				]);
+			self.link = ko.computed(function(){
+				return self.showNews() ? 'Atras': 'Seguir leyendo';
+			});
+
+			self.link = ko.computed(function(){
+				return self.showNews2() ? 'Atras': 'Seguir leyendo';
+			});
+
+			self.headerColor = ko.computed(function(){
+				return self.showNews() ? 'blue':'red';
+			});
+
+			self.linkContainerStyle = ko.computed(function(){
+				return self.showNews() ? 'big_box':'small_box';
+			});
+
+			self.handleClick = function(){
+				self.showNews(!self.showNews());
+			};
+
+
+		};
+		var v = new MV();
+		ko.applyBindings(v);
+	</script>
+</body>
+</html>

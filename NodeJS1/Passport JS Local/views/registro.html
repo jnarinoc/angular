@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block titulo %}
+	Registro de Usuarios
+{% endblock %}
+
+{% block form %}
+	<form role="form" action="/registro" method="POST">
+		<div class="form-group">
+			<label for="exampleInputNombre">Nombre Completo</label>
+			<input type="text" id="exampleInputNombre" name="nombre" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputEdad">Edad</label>
+			<input type="text" id="exampleInputEdad" name="edad" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputUsuario">Usuario</label>
+			<input type="text" id="exampleInputUsuario" name="usuario" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword">Password</label>
+			<input type="password" id="exampleInputPassword" name="password" class="form-control">
+		</div>
+		<button type="submit" class="btn btn-default">Submit</button>
+	</form>
+{% endblock %}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="js/jquery-2.1.3.js "></script>
+        <script src="js/kendo.all.min.js"></script>
+        <script src="js/knockout-3.1.0.js"></script>
+        <script src="js/knockout-kendo.min.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+
+        <link href="css/kendo.common-bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/kendo.bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/kendo.dataviz.min.css" rel="stylesheet"/>
+        <link href="css/kendo.dataviz.bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" >
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+
+
+    </head>
+
+    <body>
+        
+        
+        <br>
+        <br>
+        
+        <div class="container">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-6">
+                        <h1>Sistema de Peticiones, Qiejas y Recursos</h1>
+                        <p class="lead">Sistema de Calidad Empresarial</p>
+                    </div>
+                </div>
+            </div>
+            <form role="form">
+                <fieldset>
+                    <legend>Informacion General del PQR</legend>
+                </fieldset>
+                <section class="well">
+                    <h2 class="ra-well-title">Descripcion del PQR</h2>
+
+                    <div class="form-horizontal form-widgets col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="name">Nombre</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" data-bind="kendoMaskedTextBox: nombre" id="nombre"/>
+                            </div>
+                        </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="birthday">Fecha</label>
+                                <div class="col-sm-8 col-md-6">
+                                    <input data-bind="kendoDatePicker: startDate" id="fecha" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="gender">Sexo</label>
+                                <div class="col-sm-8 col-md-6">
+                                    <input data-bind="kendoDropDownList: { data: choices, value: selectedChoice }" id="sexo" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-4" for="language">Tipo:</label>
+                                <div class="col-sm-8 col-md-6">
+                                    <input data-bind="kendoDropDownList: { data: tquejas, value: selectedquejas }" id="tipo_pqr" />
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="form-horizontal form-widgets col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="occupation">identificacion</label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="text" data-bind="kendoMaskedTextBox: iden" id="identificacion" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="skills">Departamento al que va dirigido ?</label>
+                            <div class="col-sm-8 col-md-6">
+                                <select data-bind="kendoMultiSelect: { data: dpto, value: depart }" id="dpto"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4" for="experience">Termino y condicinoes </label>
+                            <div class="col-sm-8 col-md-6">
+                                <input type="checkbox" data-bind="" /><p style="text-align: justify;" id="verificacion" > En el Lapso de tiempo estipulado por la Ley tener en cuenta que debe imprimir el reporte</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-horizontal form-widgets col-sm-12">
+                        <div class="form-group">
+                            <div class="col-sm-15">
+                                <textarea rows="10" cols="20" data-bind="kendoEditor: descp" id="msj"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="buttons-wrap">
+                        <button data-bind="click:agregar ">Registrar</button>
+                        <input type="reset" value="Cancelar" name="Cancelar" />
+                    </div>
+                </section> 
+            </form>
+            <hr/>
+            <div data-bind="kendoGrid: { data: Datos, groupable: true, scrollable: true, sortable: true, pageable: { pageSize: 10 } }"></div>
+            <button data-bind="click:borrarContenido ">Borrar Contenido</button>
+        </div>
+        <br>
+        <br>
+        <script>
+            function ModeloVista (){
+                
+                var self = this;
+                
+                self.Datos = ko.observableArray([{iden:"", nombre:"", fecha:"", sexo:"", tqueja:"", depto:"", tyc:"", mensaje:""}]);
+                
+                self.nombre = ko.observable();
+                self.iden = ko.observable();
+                
+                self.startDate = ko.observable(new Date());
+                self.choices = ko.observableArray(["Masculino", "Femenino"]);
+                self.selectedChoice = ko.observable();
+                
+                self.tquejas = ko.observableArray(["Queja", "Peticion", "Recurso"]);
+                self.selectedquejas = ko.observable();
+                
+                self.dpto = ko.observableArray(["Administrativo", "Contabilidad", "Recursos Humanos", "Sistemas", "Calidad", "Financiero"]);
+                self.depart = ko.observable();
+                
+                self.descp = ko.observable();
+                
+                self.agregar = function (){
+                  
+                  var n = $('#nombre').val();
+                  var id = $('#identificacion').val();
+                  var f = $('#fecha').val();
+                  var t = $('#tipo_pqr').val();
+                  var s = $('#sexo').val();
+                  var dp = $('#dpto').val();
+                  var m = $('#msj').val();
+                  
+                  self.Datos.push({iden:id, nombre:n, fecha:f, sexo:s, tqueja:t, dpto:dp, tyc:t, mensaje:m});
+                  
+                };
+                
+                self.borrarContenido = function (){
+                    self.Datos.remove();
+                }
+            }
+            ko.applyBindings(new ModeloVista());
+            
+        </script>
+    </body>
+</html>

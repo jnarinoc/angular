@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Swig</title>
+</head>
+<body>
+	<ul>
+		{% for grupos in usuarios | groupBy('age') %}
+		<h2>Tienen: {{loop.key}} años</h2>
+		<ul>
+			{% for user in grupos %}
+			<li>{{user.name}}</li>
+			{% endfor %}
+		</ul>
+		{% endfor %}
+	</ul>
+</body>
+</html>
